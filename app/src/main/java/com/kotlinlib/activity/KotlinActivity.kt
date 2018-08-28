@@ -82,13 +82,24 @@ abstract class KotlinActivity : AppCompatActivity(), BaseInterface {
         return DensityUtils.sp2px(this@KotlinActivity, this.toFloat())
     }
 
+    /**
+     * 通过修改窗口的透明度来进行变灰
+     * @param alpha Float
+     */
+    fun windowAlpha(alpha:Float=0.4f){
+        val attr = window.attributes
+        attr.alpha = alpha
+        window.attributes = attr
+    }
+
     inner class JsonList<T>{
+        /**
+         * 将json字符串转换为对象List
+         * @param jsonStr String
+         * @return List<T>
+         */
         fun transList(jsonStr:String): List<T> {
             return gson.fromJson(jsonStr, object : TypeToken<List<T>>(){}.type) as List<T>
-        }
-
-        fun transArrayList(jsonStr:String): ArrayList<T> {
-            return gson.fromJson(jsonStr, object : TypeToken<ArrayList<T>>(){}.type) as ArrayList<T>
         }
     }
 
