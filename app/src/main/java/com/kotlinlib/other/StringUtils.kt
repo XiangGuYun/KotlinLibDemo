@@ -77,5 +77,24 @@ interface StringUtils {
         return "<font color='$color'>$this</font>"
     }
 
+    /**
+     * 获取是随机颜色字符串
+     */
+    fun getRandColorCode(): String {
+        var r: String
+        var g: String
+        var b: String
+        val random = Random()
+        r = Integer.toHexString(random.nextInt(256)).toUpperCase()
+        g = Integer.toHexString(random.nextInt(256)).toUpperCase()
+        b = Integer.toHexString(random.nextInt(256)).toUpperCase()
+
+        r = if (r.length == 1) "0$r" else r
+        g = if (g.length == 1) "0$g" else g
+        b = if (b.length == 1) "0$b" else b
+
+        return r + g + b
+    }
+
 
 }

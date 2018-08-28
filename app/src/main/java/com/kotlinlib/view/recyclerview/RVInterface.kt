@@ -45,44 +45,4 @@ interface RVInterface {
         getView<TextView>(id).text = Html.fromHtml(html)
     }
 
-    fun RVUtils.pageConfig(currentPage:Int, pageCount:Int): RVUtils {
-        this.currentPage = currentPage
-        this.pageCount = pageCount
-        return this
-    }
-
-    fun RVUtils.enableRefresh(refresh:SmartRefreshLayout, onRefresh:(RefreshLayout)->Unit,
-                                                              onAddMore:(RefreshLayout)->Unit){
-        refreshLayout = refresh
-        refreshLayout.setOnRefreshListener {
-            onRefresh.invoke(it)
-        }
-        refreshLayout.setOnLoadMoreListener {
-            onRefresh.invoke(it)
-        }
-    }
-
-    fun RVUtils.refresh(newList:List<*>, finish: () -> Unit){
-        currentPage = 1
-        dataList.clear()
-        dataList = newList
-        adapter.notifyDataSetChanged()
-        finish.invoke()
-    }
-
-    fun RVUtils.checkMore(noMore:()->Unit, reqMore:(page:Int)->Unit){
-        if(currentPage+1>pageCount){
-            noMore.invoke()
-            return
-        }
-        reqMore.invoke(++currentPage)
-    }
-
-    fun RVUtils.addMore(newData:List<*>, finish:()->Unit){
-        dataList.addAll(newData)
-        adapter.notifyDataSetChanged()
-        refreshLayout.finishLoadMore()
-        finish.invoke()
-    }
-
 }
