@@ -16,6 +16,15 @@ import java.io.FileOutputStream
 
 interface BmpUtils {
 
+    /**
+     * 显示网络图片
+     * @receiver KotlinActivity
+     * @param url String 图片地址
+     * @param iv ImageView
+     * @param thumbnailValue Float 缩略值
+     * @param placeholderImg Int 占位图
+     * @param errorLoadImg Int 错误图
+     */
     fun KotlinActivity.showBmp(url:String, iv:ImageView,
                                thumbnailValue:Float=1.0f,//缩略图
                                placeholderImg:Int= ResUtils.getMipmapId(this,"ic_launcher"),//占位图
@@ -90,7 +99,13 @@ interface BmpUtils {
         return BitmapFactory.decodeResource(this.resources, id,options)
     }
 
-
+    /**
+     * 从本地路径中解析Bitmap
+     * @receiver Context
+     * @param path String
+     * @param options BitmapFactory.Options
+     * @return Bitmap
+     */
     fun Context.bmpFromRes(path:String, options:BitmapFactory.Options=BitmapFactory.Options()):Bitmap{
         return BitmapFactory.decodeFile(path,options)
     }
