@@ -18,6 +18,18 @@ abstract class KotlinActivity : AppCompatActivity(), BaseInterface {
         var gson = Gson()//所有Activity共享一个GSON
         var actList = ArrayList<Activity>()
         var currAct:String = ""
+        /**
+         * 根据Activity的名称来结束该Activity
+         * @param actName String
+         */
+        fun finishActivityByName(actName:String){
+            for(activity in actList){
+                if(activity.javaClass.simpleName==actName){
+                    activity.finish()
+                    return
+                }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +104,7 @@ abstract class KotlinActivity : AppCompatActivity(), BaseInterface {
         window.attributes = attr
     }
 
-    inner class JsonList<T>{
+    class JsonList<T>{
         /**
          * 将json字符串转换为对象List
          * @param jsonStr String

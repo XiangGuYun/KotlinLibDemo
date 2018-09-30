@@ -41,6 +41,15 @@ interface RVInterface {
         return this
     }
 
+    fun <T> RVUtils.rvMultiAdapter(data:List<T>,
+                                   fun1:(holder: Holder, pos:Int)->Unit,
+                                   fun2:(pos:Int)->Int,
+                                   vararg itemId:Int): RVUtils {
+        adapter(data, RVUtils.onBindData(fun1),
+                RVUtils.SetMultiCellView(fun2),*itemId)
+        return this
+    }
+
     fun Holder.htmlText(id:Int, html:String){
         getView<TextView>(id).text = Html.fromHtml(html)
     }

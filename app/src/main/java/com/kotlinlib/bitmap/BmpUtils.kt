@@ -10,6 +10,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.kotlinlib.activity.KotlinActivity
 import com.kotlinlib.other.ResUtils
+import com.kotlinlib.view.KotlinFragment
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -36,6 +37,21 @@ interface BmpUtils {
                 .error(errorLoadImg)
                 .thumbnail(thumbnailValue)
                 .override(this.srnWidth()/4,50.dp2px())
+                .centerCrop()
+                .into(iv)
+    }
+
+    fun KotlinFragment.showBmp(url:String, iv:ImageView,
+                               thumbnailValue:Float=1.0f,//缩略图
+                               placeholderImg:Int= ResUtils.getMipmapId(this.activity!!,"ic_launcher"),//占位图
+                               errorLoadImg:Int=ResUtils.getMipmapId(this.activity!!,"ic_launcher")//错误图
+    ){
+        Glide.with(this.activity)
+                .load(url)
+                .placeholder(placeholderImg)
+                .error(errorLoadImg)
+                .thumbnail(thumbnailValue)
+                .override(this.activity!!.srnWidth()/4,50.dp2px())
                 .centerCrop()
                 .into(iv)
     }
